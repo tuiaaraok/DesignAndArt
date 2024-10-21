@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
-                  for (int i = 0; i < box.values.length; i++)
+                  for (int i = box.values.length - 1; i >= 0; i--)
                     Padding(
                       padding: EdgeInsets.only(top: 10.h),
                       child: Container(
@@ -88,10 +88,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               Padding(
                                 padding: EdgeInsets.only(left: 10.h),
                                 child: Container(
-                                  height: 80.h,
                                   child: Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceAround,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -133,96 +132,84 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   box.isEmpty
-                      ? Container(
-                          height: 600.h,
+                      ? Padding(
+                          padding: EdgeInsets.only(top: 50.h),
                           child: Center(
                             child: Container(
                               width: 340.w,
-                              height: 420.h,
                               decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(12.r)),
                                   color: Color(0xFF5E7E7A)),
-                              child: Stack(
+                              child: Column(
                                 children: [
-                                  Positioned(
-                                    top: -10.h,
-                                    right: 0.h,
-                                    child: Container(
-                                      width: 300.h,
-                                      height: 300.h,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              fit: BoxFit.fitWidth,
-                                              image: AssetImage(
-                                                  "assets/empty_profile.png"))),
-                                    ),
+                                  Container(
+                                    width: 300.h,
+                                    height: 300.h,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.fitWidth,
+                                            image: AssetImage(
+                                                "assets/empty_profile.png"))),
                                   ),
-                                  Positioned(
-                                    bottom: 0,
-                                    child: Container(
-                                      width: 340.w,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            right: 20.h,
-                                            left: 20.h,
-                                            bottom: 20.h),
-                                        child: Stack(
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    "You don't have any\npaintings in your\nprotfolio yet",
-                                                    style: TextStyle(
-                                                        fontSize: 24.sp,
-                                                        color:
-                                                            Color(0xFF98DFD5)),
-                                                  ),
+                                  Container(
+                                    width: 340.w,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          right: 20.h,
+                                          left: 20.h,
+                                          bottom: 20.h),
+                                      child: Stack(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "You don't have any\npaintings in your\nprotfolio yet",
+                                                  style: TextStyle(
+                                                      fontSize: 24.sp,
+                                                      color: Color(0xFF98DFD5)),
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Add your first\npainting",
-                                                    style: TextStyle(
-                                                        fontSize: 18.sp,
-                                                        color:
-                                                            Color(0xFF3C4C4A)),
-                                                  ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "Add your first\npainting",
+                                                  style: TextStyle(
+                                                      fontSize: 18.sp,
+                                                      color: Color(0xFF3C4C4A)),
                                                 ),
-                                              ],
-                                            ),
-                                            Positioned(
-                                              bottom: 0,
-                                              right: 0,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute<void>(
-                                                      builder: (BuildContext
-                                                              context) =>
-                                                          ProfilePageAdd(),
-                                                    ),
-                                                  );
-                                                },
-                                                child: CircleAvatar(
-                                                  radius: 26.r,
-                                                  backgroundColor:
-                                                      Color(0xFF98DFD5),
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    size: 40.h,
-                                                    color: Colors.black,
+                                              ),
+                                            ],
+                                          ),
+                                          Positioned(
+                                            bottom: 0,
+                                            right: 0,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute<void>(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        ProfilePageAdd(),
                                                   ),
+                                                );
+                                              },
+                                              child: CircleAvatar(
+                                                radius: 26.r,
+                                                backgroundColor:
+                                                    Color(0xFF98DFD5),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 40.h,
+                                                  color: Colors.black,
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),

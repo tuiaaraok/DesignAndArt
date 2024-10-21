@@ -1,19 +1,13 @@
-import 'dart:math';
 import 'package:designer_and_artist/data/boxes.dart';
 import 'package:designer_and_artist/data/model/order_archive_model.dart';
 import 'package:designer_and_artist/data/model/place_an_order_model.dart';
 import 'package:designer_and_artist/data/model/profile_model.dart';
 import 'package:designer_and_artist/menu_page.dart';
 import 'package:designer_and_artist/onboarding_page.dart';
-import 'package:designer_and_artist/order_archive_page.dart';
-import 'package:designer_and_artist/place_an_order_add_page.dart';
-import 'package:designer_and_artist/profile_page.dart';
-import 'package:designer_and_artist/profile_page_add.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +34,6 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
-            // onGenerateRoute: NavigationApp.generateRoute,
             theme: ThemeData(
                 scaffoldBackgroundColor: Color(0xFF98DFD5),
                 appBarTheme: AppBarTheme(backgroundColor: Colors.transparent)),

@@ -28,7 +28,7 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
-  int page = 0; // Текущая страница
+  int page = 0;
 
   final int _numPages = 3;
   List<Widget> _buildPageIndicator() {
@@ -99,7 +99,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
           LiquidSwipe.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
-              // Если мы на странице 5, избежать навигации, пока виджет активен
               if (index == 3) {
                 if (push) {
                   Future.delayed(Duration(seconds: 3), () {
@@ -308,10 +307,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
             waveType: WaveType.liquidReveal,
             liquidController: liquidController,
             fullTransitionValue: page != 2 ? 880.h : 0,
-            enableSideReveal: page != 3, // Отключить свайп на странице 5
-            preferDragFromRevealedArea:
-                page != 3, // Отключить свайп на странице 5
-            enableLoop: false, // Отключите зацикливание, если нужно
+            enableSideReveal: page != 3,
+            preferDragFromRevealedArea: page != 3,
+            enableLoop: false,
             ignoreUserGestureWhileAnimating: true,
           ),
         ],

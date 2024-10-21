@@ -21,17 +21,12 @@ class MenuPage extends StatefulWidget {
 class _MenuPageState extends State<MenuPage> {
   int currentIndex = -1;
   String _buildDateOfDeliveryText(String dateStr) {
-    // Разбить строку на части (день, месяц, год)
     List<String> parts = dateStr.split('.');
     int day = int.parse(parts[0]);
     int month = int.parse(parts[1]);
     int year = int.parse(parts[2]);
     DateTime deliveryDate = DateTime(year, month, day);
-
-    // Получить текущую дату
     DateTime now = DateTime.now();
-
-    // Вычислить разницу в днях
     Duration difference = deliveryDate.difference(now);
     int daysLeft = difference.inDays;
 
@@ -39,21 +34,14 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Color _getDateTextColor(String dateStr) {
-    // Разбить строку на части (день, месяц, год)
     List<String> parts = dateStr.split('.');
     int day = int.parse(parts[0]);
     int month = int.parse(parts[1]);
     int year = int.parse(parts[2]);
     DateTime deliveryDate = DateTime(year, month, day);
-
-    // Получить текущую дату
     DateTime now = DateTime.now();
-
-    // Вычислить разницу в днях
     Duration difference = deliveryDate.difference(now);
     int daysLeft = difference.inDays;
-
-    // Вернуть цвет в зависимости от разницы
     return (daysLeft < 0) ? Colors.red : Colors.white;
   }
 
@@ -168,12 +156,13 @@ class _MenuPageState extends State<MenuPage> {
                               )),
                         ),
                       ),
-                      for (int i = 0; i < box.values.length; i++)
+                      for (int i = box.values.length - 1; i >= 0; i--)
                         currentIndex == i
                             ? Padding(
-                                padding: EdgeInsets.only(bottom: 10.h),
+                                padding: EdgeInsets.only(
+                                  bottom: 10.h,
+                                ),
                                 child: Container(
-                                  height: 331.h,
                                   width: 300.w,
                                   decoration: BoxDecoration(
                                       color: Color(0xFF80B0AA),
@@ -183,7 +172,6 @@ class _MenuPageState extends State<MenuPage> {
                                     children: [
                                       Container(
                                         width: 300.w,
-                                        height: 110.h,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(12.r)),
@@ -191,6 +179,7 @@ class _MenuPageState extends State<MenuPage> {
                                         child: Padding(
                                           padding: EdgeInsets.only(
                                               bottom: 5.h,
+                                              top: 5.h,
                                               left: 15.h,
                                               right: 5.h),
                                           child: Row(
@@ -217,11 +206,9 @@ class _MenuPageState extends State<MenuPage> {
                                                 padding:
                                                     EdgeInsets.only(left: 10.h),
                                                 child: Container(
-                                                  height: 80.h,
                                                   child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
@@ -238,7 +225,6 @@ class _MenuPageState extends State<MenuPage> {
                                                                 FontWeight
                                                                     .bold),
                                                       ),
-                                                      // Обработка даты доставки
                                                       Text(
                                                         box.getAt(i)!.isComlete!
                                                             ? "Complete!"
@@ -275,26 +261,30 @@ class _MenuPageState extends State<MenuPage> {
                                                 ),
                                               ),
                                               Spacer(),
-                                              Align(
-                                                alignment:
-                                                    Alignment.bottomRight,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      currentIndex = -1;
-                                                    });
-                                                  },
-                                                  child: CircleAvatar(
-                                                    radius: 16.r,
-                                                    backgroundColor: Colors
-                                                        .white
-                                                        .withOpacity(0.25),
-                                                    child: Center(
-                                                      child: Icon(
-                                                        Icons.keyboard_arrow_up,
-                                                        color:
-                                                            Color(0xFF98DFD5),
-                                                        size: 30.h,
+                                              Container(
+                                                height: 90.h,
+                                                child: Align(
+                                                  alignment:
+                                                      Alignment.bottomRight,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        currentIndex = -1;
+                                                      });
+                                                    },
+                                                    child: CircleAvatar(
+                                                      radius: 16.r,
+                                                      backgroundColor: Colors
+                                                          .white
+                                                          .withOpacity(0.25),
+                                                      child: Center(
+                                                        child: Icon(
+                                                          Icons
+                                                              .keyboard_arrow_up,
+                                                          color:
+                                                              Color(0xFF98DFD5),
+                                                          size: 30.h,
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -382,11 +372,8 @@ class _MenuPageState extends State<MenuPage> {
                                         Padding(
                                           padding: EdgeInsets.only(left: 10.h),
                                           child: Container(
-                                            height: 80.h,
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
@@ -580,7 +567,6 @@ class _MenuPageState extends State<MenuPage> {
                       if (box.isEmpty)
                         Container(
                           width: 340.w,
-                          height: 440.h,
                           decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20.r)),
