@@ -236,7 +236,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             bottom: MediaQuery.paddingOf(context).bottom),
                         child: GestureDetector(
                           onTap: () async {
-                            final Uri _url = Uri.parse('https://flutter.dev');
+                            final Uri _url = Uri.parse(
+                                'https://docs.google.com/document/d/1532C6AqXYJTchuObCw0d5XQMtTx_31k95stEN5ZwCco/mobilebasic');
                             if (!await launchUrl(_url)) {
                               throw Exception('Could not launch $_url');
                             }
