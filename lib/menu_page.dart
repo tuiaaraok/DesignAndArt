@@ -4,7 +4,6 @@ import 'package:designer_and_artist/data/model/place_an_order_model.dart';
 import 'package:designer_and_artist/order_archive_page.dart';
 import 'package:designer_and_artist/place_an_order_add_page.dart';
 import 'package:designer_and_artist/profile_page.dart';
-import 'package:designer_and_artist/profile_page_add.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
