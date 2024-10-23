@@ -43,9 +43,7 @@ Future<String> _initializeRemoteConfig() async {
     ));
 
     // Defaults setup
-    await remoteConfig.setDefaults({
-      'link': 'default_value',
-    });
+
     try {
       bool updated = await remoteConfig.fetchAndActivate();
       print("Remote Config Update Status: $updated");
@@ -62,10 +60,6 @@ Future<String> _initializeRemoteConfig() async {
         fetchTimeout: const Duration(minutes: 1),
         minimumFetchInterval: const Duration(minutes: 1),
       ));
-
-      await remoteConfig.setDefaults({
-        'link': 'default_value',
-      });
 
       try {
         bool updated = await remoteConfig.fetchAndActivate();
@@ -84,7 +78,9 @@ Future<String> _initializeRemoteConfig() async {
     }
   }
 
-  return link;
+  return link == ""
+      ? "https://telegra.ph/ColorCode-Design-and-Art-Privacy-Policy-10-21?showAgreebutton"
+      : link;
 }
 
 class MyApp extends StatelessWidget {
