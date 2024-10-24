@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:designer_and_artist/data/boxes.dart';
 import 'package:designer_and_artist/data/model/profile_model.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class ProfilePageAdd extends StatefulWidget {
+  const ProfilePageAdd({super.key});
+
   @override
   State<ProfilePageAdd> createState() => _ProfilePageAddState();
 }
@@ -16,7 +20,7 @@ class _ProfilePageAddState extends State<ProfilePageAdd> {
   Uint8List? _image;
   TextEditingController nameOfThePictureController = TextEditingController();
   TextEditingController noteController = TextEditingController();
-  FocusNode _nodeText1 = FocusNode();
+  final FocusNode _nodeText1 = FocusNode();
   Future getLostData() async {
     try {
       XFile? picker =
@@ -26,7 +30,7 @@ class _ProfilePageAddState extends State<ProfilePageAdd> {
       _image = Uint8List.fromList(imageBytes);
       setState(() {});
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
@@ -60,7 +64,8 @@ class _ProfilePageAddState extends State<ProfilePageAdd> {
                   ),
                 ]),
             child: SingleChildScrollView(
-              child: Container(
+              child: SizedBox(
+                width: double.infinity,
                 child: Column(
                   children: [
                     Padding(
@@ -149,7 +154,7 @@ class _ProfilePageAddState extends State<ProfilePageAdd> {
                       padding: EdgeInsets.symmetric(vertical: 30.h),
                       child: Column(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 300.w,
                             child: Text(
                               "Name of the picture",
@@ -202,7 +207,7 @@ class _ProfilePageAddState extends State<ProfilePageAdd> {
                     ),
                     Column(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 300.w,
                           child: Text(
                             "Notes",
@@ -263,11 +268,10 @@ class _ProfilePageAddState extends State<ProfilePageAdd> {
                       onTap: () {
                         if (_updateFormCompletion()) {
                           Box<ProfileModel> contactsBox =
-                              Hive.box<ProfileModel>(HiveBoxes.profile_model);
+                              Hive.box<ProfileModel>(HiveBoxes.profileModel);
                           ProfileModel addwishfriend = ProfileModel(
                             image: _image!,
-                            name_of_the_picture:
-                                nameOfThePictureController.text,
+                            nameOfThePicture: nameOfThePictureController.text,
                             note: noteController.text,
                           );
                           contactsBox.add(addwishfriend);

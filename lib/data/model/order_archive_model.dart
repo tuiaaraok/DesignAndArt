@@ -7,9 +7,8 @@ class OrderArchiveModel {
   @HiveField(0)
   Uint8List? image;
   @HiveField(1)
-  String? name_of_the_picture;
+  String? nameOfThePicture;
   @HiveField(2)
-  String? date_of_delivery;
-  OrderArchiveModel(
-      {this.image, this.name_of_the_picture, this.date_of_delivery});
+  String? dateOfDelivery;
+  OrderArchiveModel({this.image, this.nameOfThePicture, this.dateOfDelivery});
 }

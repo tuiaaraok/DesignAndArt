@@ -2,10 +2,11 @@ import 'package:designer_and_artist/data/boxes.dart';
 import 'package:designer_and_artist/data/model/order_archive_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class OrderArchivePage extends StatefulWidget {
+  const OrderArchivePage({super.key});
+
   @override
   State<OrderArchivePage> createState() => _OrderArchivePageState();
 }
@@ -15,7 +16,7 @@ class _OrderArchivePageState extends State<OrderArchivePage> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
         valueListenable:
-            Hive.box<OrderArchiveModel>(HiveBoxes.order_archive_model)
+            Hive.box<OrderArchiveModel>(HiveBoxes.orderArchiveModel)
                 .listenable(),
         builder: (context, Box<OrderArchiveModel> box, _) {
           return Scaffold(
@@ -92,18 +93,16 @@ class _OrderArchivePageState extends State<OrderArchivePage> {
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(left: 10.h),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: 80.h,
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               width: 150.w,
                                               child: Text(
-                                                box
-                                                    .getAt(i)!
-                                                    .name_of_the_picture!,
+                                                box.getAt(i)!.nameOfThePicture!,
                                                 maxLines: 2,
                                                 style: TextStyle(
                                                     color: Color(0xFF98DFD5),
@@ -117,7 +116,7 @@ class _OrderArchivePageState extends State<OrderArchivePage> {
                                               height: 10.h,
                                             ),
                                             Text(
-                                              box.getAt(i)!.date_of_delivery!,
+                                              box.getAt(i)!.dateOfDelivery!,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                   color: Color(0xFF8D8D8D),
@@ -148,7 +147,7 @@ class _OrderArchivePageState extends State<OrderArchivePage> {
                       ),
                     ),
                   if (box.isEmpty)
-                    Container(
+                    SizedBox(
                       height: 600.h,
                       child: Center(
                         child: Column(

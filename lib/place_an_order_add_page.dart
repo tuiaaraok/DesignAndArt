@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:designer_and_artist/data/boxes.dart';
 import 'package:designer_and_artist/data/model/place_an_order_model.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class PlaceAnOrderAddPage extends StatefulWidget {
+  const PlaceAnOrderAddPage({super.key});
+
   @override
   State<PlaceAnOrderAddPage> createState() => _PlaceAnOrderAddPageState();
 }
@@ -19,7 +23,7 @@ class _PlaceAnOrderAddPageState extends State<PlaceAnOrderAddPage> {
   TextEditingController dateOfDeliveryController = TextEditingController();
   TextEditingController noteController = TextEditingController();
 
-  FocusNode _nodeText1 = FocusNode();
+  final FocusNode _nodeText1 = FocusNode();
   Future getLostData() async {
     try {
       XFile? picker =
@@ -29,7 +33,7 @@ class _PlaceAnOrderAddPageState extends State<PlaceAnOrderAddPage> {
       _image = Uint8List.fromList(imageBytes);
       setState(() {});
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
@@ -65,7 +69,7 @@ class _PlaceAnOrderAddPageState extends State<PlaceAnOrderAddPage> {
                   ),
                 ]),
             child: SingleChildScrollView(
-              child: Container(
+              child: SizedBox(
                 height: 780.h,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -151,7 +155,7 @@ class _PlaceAnOrderAddPageState extends State<PlaceAnOrderAddPage> {
                     ),
                     Column(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 300.w,
                           child: Text(
                             "Name of the picture",
@@ -203,7 +207,7 @@ class _PlaceAnOrderAddPageState extends State<PlaceAnOrderAddPage> {
                     ),
                     Column(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 300.w,
                           child: Text(
                             "Date of delivery",
@@ -262,7 +266,7 @@ class _PlaceAnOrderAddPageState extends State<PlaceAnOrderAddPage> {
                     ),
                     Column(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 300.w,
                           child: Text(
                             "Notes",
@@ -321,12 +325,11 @@ class _PlaceAnOrderAddPageState extends State<PlaceAnOrderAddPage> {
                         if (_updateFormCompletion()) {
                           Box<PlaceAnOrderModel> contactsBox =
                               Hive.box<PlaceAnOrderModel>(
-                                  HiveBoxes.place_an_order_model);
+                                  HiveBoxes.placeAnOrderModel);
                           PlaceAnOrderModel addwishfriend = PlaceAnOrderModel(
                               image: _image!,
-                              name_of_the_picture:
-                                  nameOfThePictureController.text,
-                              date_of_delivery: dateOfDeliveryController.text,
+                              nameOfThePicture: nameOfThePictureController.text,
+                              dateOfDelivery: dateOfDeliveryController.text,
                               note: noteController.text,
                               isComlete: false);
                           contactsBox.add(addwishfriend);

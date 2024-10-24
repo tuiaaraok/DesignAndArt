@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:designer_and_artist/data/boxes.dart';
 import 'package:designer_and_artist/data/model/order_archive_model.dart';
 import 'package:designer_and_artist/data/model/place_an_order_model.dart';
@@ -9,7 +11,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -20,9 +21,9 @@ void main() async {
   Hive.registerAdapter(ProfileModelAdapter());
   Hive.registerAdapter(PlaceAnOrderModelAdapter());
   Hive.registerAdapter(OrderArchiveModelAdapter());
-  await Hive.openBox<ProfileModel>(HiveBoxes.profile_model);
-  await Hive.openBox<PlaceAnOrderModel>(HiveBoxes.place_an_order_model);
-  await Hive.openBox<OrderArchiveModel>(HiveBoxes.order_archive_model);
+  await Hive.openBox<ProfileModel>(HiveBoxes.profileModel);
+  await Hive.openBox<PlaceAnOrderModel>(HiveBoxes.placeAnOrderModel);
+  await Hive.openBox<OrderArchiveModel>(HiveBoxes.orderArchiveModel);
   await Hive.openBox("privacyLink");
   await _initializeRemoteConfig().then((onValue) {
     runApp(MyApp(
@@ -45,14 +46,11 @@ Future<String> _initializeRemoteConfig() async {
     // Defaults setup
 
     try {
-      bool updated = await remoteConfig.fetchAndActivate();
-      print("Remote Config Update Status: $updated");
+      await remoteConfig.fetchAndActivate();
 
       link = remoteConfig.getString("link");
-
-      print("Fetched link: $link");
     } catch (e) {
-      print("Failed to fetch remote config: $e");
+      log("Failed to fetch remote config: $e");
     }
   } else {
     if (box.get('link').contains("showAgreebutton")) {
@@ -62,13 +60,11 @@ Future<String> _initializeRemoteConfig() async {
       ));
 
       try {
-        bool updated = await remoteConfig.fetchAndActivate();
-        print("Remote Config Update Status: $updated");
+        await remoteConfig.fetchAndActivate();
 
         link = remoteConfig.getString("link");
-        print("Fetched link: $link");
       } catch (e) {
-        print("Failed to fetch remote config: $e");
+        log("Failed to fetch remote config: $e");
       }
       if (!link.contains("showAgreebutton")) {
         box.put('link', link);
@@ -84,7 +80,7 @@ Future<String> _initializeRemoteConfig() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.link});
+  const MyApp({super.key, required this.link});
   final String link;
 
   @override
@@ -107,10 +103,10 @@ class MyApp extends StatelessWidget {
                 : Hive.box("privacyLink")
                         .get('link')
                         .contains("showAgreebutton")
-                    ? (Hive.box<ProfileModel>(HiveBoxes.profile_model)
+                    ? (Hive.box<ProfileModel>(HiveBoxes.profileModel)
                                 .isNotEmpty ||
                             Hive.box<PlaceAnOrderModel>(
-                                    HiveBoxes.place_an_order_model)
+                                    HiveBoxes.placeAnOrderModel)
                                 .isNotEmpty)
                         ? OnboardingPage()
                         : MenuPage()
@@ -123,7 +119,7 @@ class MyApp extends StatelessWidget {
 }
 
 class WebViewScreen extends StatefulWidget {
-  WebViewScreen({required this.link});
+  const WebViewScreen({super.key, required this.link});
   final String link;
 
   @override
@@ -153,7 +149,6 @@ class _WebViewScreenState extends State<WebViewScreen> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
-            print(progress);
             if (progress == 100) {
               loadAgree = true;
               setState(() {});
@@ -186,14 +181,16 @@ class _WebViewScreenState extends State<WebViewScreen> {
           if (loadAgree)
             GestureDetector(
                 onTap: () async {
-                  var box = await Hive.openBox('privacyLink');
-                  box.put('link', widget.link);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => OnboardingPage(),
-                    ),
-                  );
+                  await Hive.openBox('privacyLink').then((box) {
+                    box.put('link', widget.link);
+                    Navigator.push(
+                      // ignore: use_build_context_synchronously
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => OnboardingPage(),
+                      ),
+                    );
+                  });
                 },
                 child: widget.link.contains("showAgreebutton")
                     ? Align(

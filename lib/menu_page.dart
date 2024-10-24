@@ -5,14 +5,14 @@ import 'package:designer_and_artist/order_archive_page.dart';
 import 'package:designer_and_artist/place_an_order_add_page.dart';
 import 'package:designer_and_artist/profile_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
 class MenuPage extends StatefulWidget {
+  const MenuPage({super.key});
+
   @override
   State<MenuPage> createState() => _MenuPageState();
 }
@@ -48,14 +48,14 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
         valueListenable:
-            Hive.box<PlaceAnOrderModel>(HiveBoxes.place_an_order_model)
+            Hive.box<PlaceAnOrderModel>(HiveBoxes.placeAnOrderModel)
                 .listenable(),
         builder: (context, Box<PlaceAnOrderModel> box, _) {
           return Scaffold(
             body: Padding(
               padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top),
               child: SingleChildScrollView(
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   child: Column(
                     children: [
@@ -144,7 +144,7 @@ class _MenuPageState extends State<MenuPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 20.h),
-                        child: Container(
+                        child: SizedBox(
                           width: 340.w,
                           child: Text("Your paintings",
                               style: GoogleFonts.purplePurse(
@@ -204,63 +204,61 @@ class _MenuPageState extends State<MenuPage> {
                                               Padding(
                                                 padding:
                                                     EdgeInsets.only(left: 10.h),
-                                                child: Container(
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        box
-                                                            .getAt(i)!
-                                                            .name_of_the_picture!,
-                                                        style: TextStyle(
-                                                            color: Color(
-                                                                0xFF98DFD5),
-                                                            fontSize: 18.sp,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      Text(
-                                                        box.getAt(i)!.isComlete!
-                                                            ? "Complete!"
-                                                            : _buildDateOfDeliveryText(box
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                  children: [
+                                                    Text(
+                                                      box
+                                                          .getAt(i)!
+                                                          .nameOfThePicture!,
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF98DFD5),
+                                                          fontSize: 18.sp,
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                    ),
+                                                    Text(
+                                                      box.getAt(i)!.isComlete!
+                                                          ? "Complete!"
+                                                          : _buildDateOfDeliveryText(box
+                                                              .getAt(i)!
+                                                              .dateOfDelivery!),
+                                                      style: TextStyle(
+                                                        color: box
                                                                 .getAt(i)!
-                                                                .date_of_delivery!),
-                                                        style: TextStyle(
-                                                          color: box
-                                                                  .getAt(i)!
-                                                                  .isComlete!
-                                                              ? Colors.white
-                                                              : _getDateTextColor(box
-                                                                  .getAt(i)!
-                                                                  .date_of_delivery!),
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                                                .isComlete!
+                                                            ? Colors.white
+                                                            : _getDateTextColor(box
+                                                                .getAt(i)!
+                                                                .dateOfDelivery!),
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
-                                                      Text(
-                                                        box
-                                                            .getAt(i)!
-                                                            .date_of_delivery!,
-                                                        style: TextStyle(
-                                                          color:
-                                                              Color(0xFF8D8D8D),
-                                                          fontSize: 14.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                                    ),
+                                                    Text(
+                                                      box
+                                                          .getAt(i)!
+                                                          .dateOfDelivery!,
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xFF8D8D8D),
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                               Spacer(),
-                                              Container(
+                                              SizedBox(
                                                 height: 90.h,
                                                 child: Align(
                                                   alignment:
@@ -370,53 +368,51 @@ class _MenuPageState extends State<MenuPage> {
                                         ),
                                         Padding(
                                           padding: EdgeInsets.only(left: 10.h),
-                                          child: Container(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  box
-                                                      .getAt(i)!
-                                                      .name_of_the_picture!,
-                                                  style: TextStyle(
-                                                      color: Color(0xFF98DFD5),
-                                                      fontSize: 18.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                box
+                                                    .getAt(i)!
+                                                    .nameOfThePicture!,
+                                                style: TextStyle(
+                                                    color: Color(0xFF98DFD5),
+                                                    fontSize: 18.sp,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text(
+                                                box.getAt(i)!.isComlete!
+                                                    ? "Complete!"
+                                                    : _buildDateOfDeliveryText(
+                                                        box
+                                                            .getAt(i)!
+                                                            .dateOfDelivery!),
+                                                style: TextStyle(
+                                                  color: box
+                                                          .getAt(i)!
+                                                          .isComlete!
+                                                      ? Colors.white
+                                                      : _getDateTextColor(box
+                                                          .getAt(i)!
+                                                          .dateOfDelivery!),
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                                Text(
-                                                  box.getAt(i)!.isComlete!
-                                                      ? "Complete!"
-                                                      : _buildDateOfDeliveryText(
-                                                          box
-                                                              .getAt(i)!
-                                                              .date_of_delivery!),
-                                                  style: TextStyle(
-                                                    color: box
-                                                            .getAt(i)!
-                                                            .isComlete!
-                                                        ? Colors.white
-                                                        : _getDateTextColor(box
-                                                            .getAt(i)!
-                                                            .date_of_delivery!),
+                                              ),
+                                              Text(
+                                                box
+                                                    .getAt(i)!
+                                                    .dateOfDelivery!,
+                                                style: TextStyle(
+                                                    color: Color(0xFF8D8D8D),
                                                     fontSize: 14.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  box
-                                                      .getAt(i)!
-                                                      .date_of_delivery!,
-                                                  style: TextStyle(
-                                                      color: Color(0xFF8D8D8D),
-                                                      fontSize: 14.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         Spacer(),
@@ -466,19 +462,19 @@ class _MenuPageState extends State<MenuPage> {
                                                             image: box
                                                                 .getAt(i)!
                                                                 .image,
-                                                            name_of_the_picture: box
+                                                            nameOfThePicture: box
                                                                 .getAt(i)!
-                                                                .name_of_the_picture,
-                                                            date_of_delivery: box
+                                                                .nameOfThePicture,
+                                                            dateOfDelivery: box
                                                                 .getAt(i)!
-                                                                .date_of_delivery,
+                                                                .dateOfDelivery,
                                                           );
                                                           Box<OrderArchiveModel>
                                                               contactsBox =
                                                               Hive.box<
                                                                       OrderArchiveModel>(
                                                                   HiveBoxes
-                                                                      .order_archive_model);
+                                                                      .orderArchiveModel);
                                                           contactsBox.add(
                                                               addOrderDone);
                                                           PlaceAnOrderModel
@@ -487,10 +483,10 @@ class _MenuPageState extends State<MenuPage> {
                                                                   image: box
                                                                       .getAt(i)!
                                                                       .image,
-                                                                  name_of_the_picture: box
+                                                                  nameOfThePicture: box
                                                                       .getAt(i)!
-                                                                      .name_of_the_picture,
-                                                                  date_of_delivery:
+                                                                      .nameOfThePicture,
+                                                                  dateOfDelivery:
                                                                       DateFormat(
                                                                               "dd.MM.y")
                                                                           .format(DateTime

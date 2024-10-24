@@ -7,17 +7,17 @@ class PlaceAnOrderModel {
   @HiveField(0)
   Uint8List? image;
   @HiveField(1)
-  String? name_of_the_picture;
+  String? nameOfThePicture;
   @HiveField(2)
-  String? date_of_delivery;
+  String? dateOfDelivery;
   @HiveField(3)
   String? note;
   @HiveField(4)
   bool? isComlete;
   PlaceAnOrderModel(
       {this.image,
-      this.name_of_the_picture,
-      this.date_of_delivery,
+      this.nameOfThePicture,
+      this.dateOfDelivery,
       this.note,
       this.isComlete});
 }

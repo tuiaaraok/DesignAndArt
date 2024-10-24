@@ -7,8 +7,8 @@ class ProfileModel {
   @HiveField(0)
   Uint8List? image;
   @HiveField(1)
-  String? name_of_the_picture;
+  String? nameOfThePicture;
   @HiveField(2)
   String? note;
-  ProfileModel({this.image, this.name_of_the_picture, this.note});
+  ProfileModel({this.image, this.nameOfThePicture, this.note});
 }

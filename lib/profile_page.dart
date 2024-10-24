@@ -3,10 +3,11 @@ import 'package:designer_and_artist/data/model/profile_model.dart';
 import 'package:designer_and_artist/profile_page_add.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -16,7 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
         valueListenable:
-            Hive.box<ProfileModel>(HiveBoxes.profile_model).listenable(),
+            Hive.box<ProfileModel>(HiveBoxes.profileModel).listenable(),
         builder: (context, Box<ProfileModel> box, _) {
           return Scaffold(
               body: Padding(
@@ -87,43 +88,40 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 10.h),
-                                child: Container(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        box.getAt(i)!.name_of_the_picture!,
-                                        style: TextStyle(
-                                            color: Color(0xFF98DFD5),
-                                            fontSize: 18.sp,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Container(
-                                        width: 182.w,
-                                        height: 52.h,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(12.r)),
-                                            border: Border.all(
-                                                color: Color(0xFF166056),
-                                                width: 2.h)),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10.h),
-                                          child: Text(
-                                            box.getAt(i)!.note!,
-                                            style: TextStyle(
-                                                color: Color(0xFF8D8D8D),
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      box.getAt(i)!.nameOfThePicture!,
+                                      style: TextStyle(
+                                          color: Color(0xFF98DFD5),
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Container(
+                                      width: 182.w,
+                                      height: 52.h,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(12.r)),
+                                          border: Border.all(
+                                              color: Color(0xFF166056),
+                                              width: 2.h)),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10.h),
+                                        child: Text(
+                                          box.getAt(i)!.note!,
+                                          style: TextStyle(
+                                              color: Color(0xFF8D8D8D),
+                                              fontSize: 10.sp,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -152,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             image: AssetImage(
                                                 "assets/empty_profile.png"))),
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width: 340.w,
                                     child: Padding(
                                       padding: EdgeInsets.only(

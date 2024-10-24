@@ -18,7 +18,7 @@ class ProfileModelAdapter extends TypeAdapter<ProfileModel> {
     };
     return ProfileModel(
       image: fields[0] as Uint8List?,
-      name_of_the_picture: fields[1] as String?,
+      nameOfThePicture: fields[1] as String?,
       note: fields[2] as String?,
     );
   }
@@ -30,7 +30,7 @@ class ProfileModelAdapter extends TypeAdapter<ProfileModel> {
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)
-      ..write(obj.name_of_the_picture)
+      ..write(obj.nameOfThePicture)
       ..writeByte(2)
       ..write(obj.note);
   }

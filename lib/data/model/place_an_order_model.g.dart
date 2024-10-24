@@ -18,8 +18,8 @@ class PlaceAnOrderModelAdapter extends TypeAdapter<PlaceAnOrderModel> {
     };
     return PlaceAnOrderModel(
       image: fields[0] as Uint8List?,
-      name_of_the_picture: fields[1] as String?,
-      date_of_delivery: fields[2] as String?,
+      nameOfThePicture: fields[1] as String?,
+      dateOfDelivery: fields[2] as String?,
       note: fields[3] as String?,
       isComlete: fields[4] as bool?,
     );
@@ -32,9 +32,9 @@ class PlaceAnOrderModelAdapter extends TypeAdapter<PlaceAnOrderModel> {
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)
-      ..write(obj.name_of_the_picture)
+      ..write(obj.nameOfThePicture)
       ..writeByte(2)
-      ..write(obj.date_of_delivery)
+      ..write(obj.dateOfDelivery)
       ..writeByte(3)
       ..write(obj.note)
       ..writeByte(4)

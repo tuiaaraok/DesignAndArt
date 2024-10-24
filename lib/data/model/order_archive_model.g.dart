@@ -18,8 +18,8 @@ class OrderArchiveModelAdapter extends TypeAdapter<OrderArchiveModel> {
     };
     return OrderArchiveModel(
       image: fields[0] as Uint8List?,
-      name_of_the_picture: fields[1] as String?,
-      date_of_delivery: fields[2] as String?,
+      nameOfThePicture: fields[1] as String?,
+      dateOfDelivery: fields[2] as String?,
     );
   }
 
@@ -30,9 +30,9 @@ class OrderArchiveModelAdapter extends TypeAdapter<OrderArchiveModel> {
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)
-      ..write(obj.name_of_the_picture)
+      ..write(obj.nameOfThePicture)
       ..writeByte(2)
-      ..write(obj.date_of_delivery);
+      ..write(obj.dateOfDelivery);
   }
 
   @override

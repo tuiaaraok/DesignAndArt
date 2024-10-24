@@ -22,6 +22,8 @@ class ItemData {
 }
 
 class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({super.key});
+
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
@@ -102,6 +104,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 if (push) {
                   Future.delayed(Duration(seconds: 3), () {
                     Navigator.push(
+                      // ignore: use_build_context_synchronously
                       context,
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) => MenuPage(),
@@ -111,7 +114,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   push = false;
                 }
 
-                return Container(
+                return SizedBox(
                   width: double.infinity,
                   height: double.infinity,
                   child: Center(
@@ -235,10 +238,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             bottom: MediaQuery.paddingOf(context).bottom),
                         child: GestureDetector(
                           onTap: () async {
-                            final Uri _url = Uri.parse(
+                            final Uri url = Uri.parse(
                                 'https://docs.google.com/document/d/1532C6AqXYJTchuObCw0d5XQMtTx_31k95stEN5ZwCco/mobilebasic');
-                            if (!await launchUrl(_url)) {
-                              throw Exception('Could not launch $_url');
+                            if (!await launchUrl(url)) {
+                              throw Exception('Could not launch $url');
                             }
                           },
                           child: Row(
