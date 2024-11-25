@@ -64,6 +64,7 @@ Future<String> _initializeRemoteConfig() async {
 
         link = remoteConfig.getString("link");
       } catch (e) {
+        log("Error");
         log("Failed to fetch remote config: $e");
       }
       if (!link.contains("showAgreebutton")) {
